@@ -37,13 +37,11 @@ public class NPCController : MonoBehaviour
             }
 
             transform.position = Vector3.MoveTowards(transform.position, targetDirection, speed * Time.deltaTime);
-
         }
     }
 
     public void Die()
     {
         Debug.Log("Die");
-
     }
 }

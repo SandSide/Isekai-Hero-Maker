@@ -54,6 +54,11 @@ public class QuestController : MonoBehaviour
         StartTimer();
     }
 
+    public void EvaluateQuestResult()
+    {
+        
+    }
+
     public void QuestOver()
     {
         Debug.Log("Game Over");
