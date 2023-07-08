@@ -38,20 +38,26 @@ public class TruckController : MonoBehaviour
 
     void FixedUpdate()
     {
-    
+        Move();
+    }
+
+    public void Move()
+    {
         rb.velocity = transform.right * currentSpeed;
         
-        if( rotate)
-        {
+        if(rotate)
             transform.Rotate(Vector3.forward * currentTurnRate * Time.deltaTime);
-        }
-    
     }
 
 
     public void HandleInput()
     {
+        HandleMovementInput();
+        HandleTurningInput();
+    }
 
+    public void HandleMovementInput()
+    {
         // Forward
         if(Input.GetKey(KeyCode.W))
         {
@@ -94,20 +100,15 @@ public class TruckController : MonoBehaviour
                 currentSpeed = Mathf.Min(currentSpeed, 0f);
             }
         }
+    }
 
-
-
+    public void HandleTurningInput()
+    {
         // Turning
         if(Input.GetKey(KeyCode.A))
         {
             currentTurnRate = turnRate;
             rotate = true;
-        }
-
-        if(Input.GetKeyUp(KeyCode.A))
-        {
-            currentTurnRate = 0f;
-            rotate = false;
         }
 
         if(Input.GetKey(KeyCode.D))
@@ -116,17 +117,10 @@ public class TruckController : MonoBehaviour
             rotate = true;
         }
 
-        if(Input.GetKeyUp(KeyCode.D))
+        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
             currentTurnRate = 0f;
             rotate = false;
         }
-
-
-    }
-
-    public void Move()
-    {
-
     }
 }
