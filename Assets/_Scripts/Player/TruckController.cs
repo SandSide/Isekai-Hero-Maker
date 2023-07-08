@@ -49,7 +49,6 @@ public class TruckController : MonoBehaviour
             transform.Rotate(Vector3.forward * currentTurnRate * Time.deltaTime);
     }
 
-
     public void HandleInput()
     {
         HandleMovementInput();
