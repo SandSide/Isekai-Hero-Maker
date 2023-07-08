@@ -5,6 +5,9 @@ using UnityEngine;
 public class QuestController : MonoBehaviour
 {
 
+    private static QuestController _instance;
+
+
     [Header("Timer Options")]
     public float timer;
     public float defaultTimeForQuest;
@@ -16,10 +19,18 @@ public class QuestController : MonoBehaviour
     public int minAge;
     public int maxAge;
 
-    // Start is called before the first frame update
-    void Start()
+    public static QuestController Instance
     {
+        get{ return _instance;}
+    }
 
+    // Start is called before the first frame update
+    void Awake()
+    {
+        if(_instance == null)
+            _instance = this;
+        else   
+            Destroy(gameObject);
     }
 
     // Update is called once per frame
@@ -54,9 +65,9 @@ public class QuestController : MonoBehaviour
         StartTimer();
     }
 
-    public void EvaluateQuestResult()
+    public void EvaluateQuestResult(Person personDetails)
     {
-        
+
     }
 
     public void QuestOver()

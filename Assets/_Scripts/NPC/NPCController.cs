@@ -44,11 +44,10 @@ public class NPCController : MonoBehaviour
         currentChangeInterval = Random.Range(2, maxChangeDirectionInterval + 1);
         targetDirection = Random.onUnitSphere*10;
         canMove = true;
-
     }
 
     public void Die()
     {
-        Debug.Log("Die");
+        QuestController.Instance.EvaluateQuestResult(npcDetails);
     }
 }
