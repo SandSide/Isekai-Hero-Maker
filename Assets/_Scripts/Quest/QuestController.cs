@@ -34,9 +34,9 @@ public class QuestController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if(Input.GetKeyDown(KeyCode.Space))
-        //     StartNewQuest();
-
+        if(GameManager.Instance.IsGameOver)
+            return;
+            
         if(questActive)
         {
             timer -= Time.deltaTime;
@@ -76,7 +76,7 @@ public class QuestController : MonoBehaviour
 
     public void QuestOver()
     {
-        Debug.Log("Game Over");
+        GameManager.Instance.IsGameOver = true;
         questActive = false;
     }
 }
