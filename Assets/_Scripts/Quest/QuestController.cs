@@ -52,14 +52,10 @@ public class QuestController : MonoBehaviour
         questActive = true;
     }
 
-    void StartNewQuest()
+    public void StartNewQuest()
     {
         currenQuest = QuestFactory.CreateQuest(minAge, maxAge);
-        
-        Debug.Log("age " + currenQuest.age);
-        Debug.Log("potential " + currenQuest.potential);
-        Debug.Log("trait " + currenQuest.trait);
-
+        NPCController.speed++;
         StartTimer();
     }
 
