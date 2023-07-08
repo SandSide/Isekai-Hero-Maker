@@ -168,9 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
-  timeForQuest: 0
-  minAge: 0
-  maxAge: 0
+  defaultTimeForQuest: 10
+  questActive: 0
+  minAge: 12
+  maxAge: 65
 --- !u!1 &109352124
 GameObject:
   m_ObjectHideFlags: 0

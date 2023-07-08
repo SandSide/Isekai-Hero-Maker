@@ -7,7 +7,8 @@ public class QuestController : MonoBehaviour
 
     [Header("Timer Options")]
     public float timer;
-    public float timeForQuest;
+    public float defaultTimeForQuest;
+    public bool questActive = false;
 
     public Quest currenQuest;
 
@@ -18,28 +19,45 @@ public class QuestController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreateNewQuest();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if(Input.GetKeyDown(KeyCode.Space))
-            CreateNewQuest();
+            StartNewQuest();
+
+        if(questActive)
+        {
+            timer -= Time.deltaTime;
+
+            if(timer < 0)
+                QuestOver();
+        }
     }
 
-
-    void Init()
+    public void StartTimer()
     {
-
+        timer = defaultTimeForQuest;
+        questActive = true;
     }
 
-    void CreateNewQuest()
+    void StartNewQuest()
     {
         currenQuest = QuestFactory.CreateQuest(minAge, maxAge);
-
+        
         Debug.Log("age " + currenQuest.age);
         Debug.Log("potential " + currenQuest.potential);
         Debug.Log("trait " + currenQuest.trait);
+
+        StartTimer();
+    }
+
+    public void QuestOver()
+    {
+        Debug.Log("Game Over");
+        questActive = false;
     }
 }
