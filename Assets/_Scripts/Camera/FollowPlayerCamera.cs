@@ -13,8 +13,6 @@ public class FollowPlayerCamera : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!canMove || target == null)
-            return;
 
         // Make camera move from current position to smooth position which is one point closer to desired Pos
         Vector3 desiredPos = target.position + offset;
