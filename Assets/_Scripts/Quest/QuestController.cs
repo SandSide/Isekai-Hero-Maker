@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class QuestController : MonoBehaviour
 {
-
     private static QuestController _instance;
-
 
     [Header("Timer Options")]
     public float timer;
@@ -36,8 +34,8 @@ public class QuestController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-            StartNewQuest();
+        // if(Input.GetKeyDown(KeyCode.Space))
+        //     StartNewQuest();
 
         if(questActive)
         {
@@ -67,18 +65,16 @@ public class QuestController : MonoBehaviour
 
     public void EvaluateQuestResult(Person personDetails)
     {
+        if(currenQuest == null)
+            return;
 
         int points = 0;
 
-        // points += AgeEvaluator.Evaluate(currenQuest.age, personDetails.age);
-        // points += PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential);
-        // points += TraitEvaluator.Evaluate(currenQuest.trait, personDetails.trait);
+        points += AgeEvaluator.Evaluate(currenQuest.age, personDetails.age);
+        points += PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential);
+        points += TraitEvaluator.Evaluate(currenQuest.trait, personDetails.trait);
 
-        Debug.Log(AgeEvaluator.Evaluate(currenQuest.age, personDetails.age));
-        Debug.Log(PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential));
-        Debug.Log(TraitEvaluator.Evaluate(currenQuest.trait, personDetails.trait));
-
-        Debug.Log("Evalaution: ");
+        Debug.Log("Evalaution: " + points);
         StartNewQuest();
     }
 
