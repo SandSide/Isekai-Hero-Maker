@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
-  defaultTimeForQuest: 10
+  defaultTimeForQuest: 20
   questActive: 0
   minAge: 12
   maxAge: 65
@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &129496241
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class NPCController : MonoBehaviour
     void Start()
     {
         rb  = GetComponent<Rigidbody2D>();
+        Init();
     }
 
     // Update is called once per frame
@@ -36,6 +37,13 @@ public class NPCController : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(transform.position, targetDirection, speed * Time.deltaTime);
         }
+    }
+
+    public void Init()
+    {
+        currentChangeInterval = Random.Range(2, maxChangeDirectionInterval + 1);
+        targetDirection = Random.onUnitSphere*10;
+        canMove = true;
     }
 
     public void Init(Person person)

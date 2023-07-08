@@ -68,6 +68,33 @@ public class QuestController : MonoBehaviour
     public void EvaluateQuestResult(Person personDetails)
     {
 
+        int points = 0;
+
+        // Evalaute age
+        if(personDetails.age >= currenQuest.age - 2 && personDetails.age <= currenQuest.age + 2)
+            points++;
+        //else if(personDetails.age >= currenQuest.age - 10 && personDetails.age <= currenQuest.age + 10)
+            //points = points;
+        else
+            points--;
+
+
+        points += PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential);
+
+        // Evaluate potential
+        if(personDetails.potential == currenQuest.potential)
+            points++;
+
+        if(personDetails.trait == currenQuest.trait)
+            points++;
+
+
+
+
+
+
+        Debug.Log("Evalaution: ");
+        StartNewQuest();
     }
 
     public void QuestOver()
