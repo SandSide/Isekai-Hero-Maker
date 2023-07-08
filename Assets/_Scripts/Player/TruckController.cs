@@ -8,20 +8,21 @@ public class TruckController : MonoBehaviour
 
     //public int speed = 0;
     public float maxSpeed = 1;
+    public float maxReverseSpeed = 1;
     public float turnRate = 1f;
+    public float acelerationRate = 2f;
+    public float slowRate = 2f;
 
     Rigidbody2D rb;
 
     public float currentSpeed = 0f;
-    public float acelerationRate = 2f;
-    public float decelerationRate = 2f;
     private bool moveForward = false;
-
-    Vector2 moveDirection = Vector2.right;
-
+    private bool reverse = false;
     private bool rotate = false;
+
     private float currentTurnRate = 0f;
 
+    Vector2 moveDirection = Vector2.right;
 
     // Start is called before the first frame update
     void Start()
@@ -38,14 +39,8 @@ public class TruckController : MonoBehaviour
     void FixedUpdate()
     {
     
-        //moveDirection
-
         rb.velocity = transform.right * currentSpeed;
         
-        //new Vector2(moveDirection.x * currentSpeed, moveDirection.y * currentSpeed);
-
-        // rb.AddForce(transform.right * currentSpeed * Time.deltaTime, ForceMode2D.Force);
-
         if( rotate)
         {
             transform.Rotate(Vector3.forward * currentTurnRate * Time.deltaTime);
@@ -57,6 +52,7 @@ public class TruckController : MonoBehaviour
     public void HandleInput()
     {
 
+        // Forward
         if(Input.GetKey(KeyCode.W))
         {
             currentSpeed += acelerationRate * Time.deltaTime;
@@ -69,15 +65,39 @@ public class TruckController : MonoBehaviour
             moveForward = false;
         }
 
-        if(!moveForward)
+        // Reverse
+        if(Input.GetKey(KeyCode.S))
         {
-            currentSpeed -= decelerationRate * Time.deltaTime;
-            currentSpeed = Mathf.Max(currentSpeed, 0f);
+           currentSpeed -= acelerationRate * Time.deltaTime;
+           currentSpeed = Mathf.Max(currentSpeed, -maxReverseSpeed);
+
+            reverse = true;
+        }
+
+        if(Input.GetKeyUp(KeyCode.S))
+        {
+            reverse = false;
         }
 
 
 
+        if(!moveForward && !reverse)
+        {
+            if(currentSpeed > 0)
+            {
+                currentSpeed -= slowRate * Time.deltaTime;
+                currentSpeed = Mathf.Max(currentSpeed, 0f);
+            }
+            else 
+            {
+                currentSpeed += slowRate * Time.deltaTime;
+                currentSpeed = Mathf.Min(currentSpeed, 0f);
+            }
+        }
 
+
+
+        // Turning
         if(Input.GetKey(KeyCode.A))
         {
             currentTurnRate = turnRate;
