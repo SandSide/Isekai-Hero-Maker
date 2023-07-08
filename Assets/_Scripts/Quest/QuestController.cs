@@ -70,28 +70,13 @@ public class QuestController : MonoBehaviour
 
         int points = 0;
 
-        // Evalaute age
-        if(personDetails.age >= currenQuest.age - 2 && personDetails.age <= currenQuest.age + 2)
-            points++;
-        //else if(personDetails.age >= currenQuest.age - 10 && personDetails.age <= currenQuest.age + 10)
-            //points = points;
-        else
-            points--;
+        // points += AgeEvaluator.Evaluate(currenQuest.age, personDetails.age);
+        // points += PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential);
+        // points += TraitEvaluator.Evaluate(currenQuest.trait, personDetails.trait);
 
-
-        points += PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential);
-
-        // Evaluate potential
-        if(personDetails.potential == currenQuest.potential)
-            points++;
-
-        if(personDetails.trait == currenQuest.trait)
-            points++;
-
-
-
-
-
+        Debug.Log(AgeEvaluator.Evaluate(currenQuest.age, personDetails.age));
+        Debug.Log(PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential));
+        Debug.Log(TraitEvaluator.Evaluate(currenQuest.trait, personDetails.trait));
 
         Debug.Log("Evalaution: ");
         StartNewQuest();

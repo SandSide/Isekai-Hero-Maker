@@ -16,19 +16,15 @@ public class PotentialEvaluator
         {
             case Potential.Mage:
                 return recieved == Potential.Priest;
-                break;
 
             case Potential.Priest:
                 return recieved == Potential.Mage;
-                break;
 
             case Potential.Swordsman:
                 return recieved == Potential.MartialArtist;
-                break;
             
             case Potential.MartialArtist:
                 return recieved == Potential.Swordsman;
-                break;
 
         }
 
