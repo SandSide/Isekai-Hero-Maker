@@ -122,4 +122,13 @@ public class TruckController : MonoBehaviour
             rotate = false;
         }
     }
+
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.CompareTag("NPC"))
+        {
+            col.gameObject.GetComponent<NPCController>().Die();
+            Destroy(col.gameObject);
+        }
+    }
 }

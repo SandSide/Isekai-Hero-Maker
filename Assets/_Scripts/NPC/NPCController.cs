@@ -40,4 +40,10 @@ public class NPCController : MonoBehaviour
 
         }
     }
+
+    public void Die()
+    {
+        Debug.Log("Die");
+
+    }
 }
