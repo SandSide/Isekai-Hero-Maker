@@ -1,21 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class QuestController : MonoBehaviour
 {
     private static QuestController _instance;
 
+    public Quest currenQuest;
+
     [Header("Timer Options")]
     public float timer;
     public float defaultTimeForQuest;
-    public bool questActive = false;
-
-    public Quest currenQuest;
+    public TMP_Text timerText;
 
     [Header("Quest Options")]
+    public bool questActive = false;
     public int minAge;
     public int maxAge;
+
+    [Header("Quest UI")]
+    public TMP_Text ageText;
+    public TMP_Text potentailText;
+    public TMP_Text traitText;
 
     public static QuestController Instance
     {
@@ -41,6 +48,9 @@ public class QuestController : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
+            string temp = ((int)timer).ToString();
+            timerText.SetText(temp);
+
             if(timer < 0)
                 QuestOver();
         }
@@ -56,6 +66,8 @@ public class QuestController : MonoBehaviour
     {
         currenQuest = QuestFactory.CreateQuest(minAge, maxAge);
         NPCController.speed++;
+
+        UpdateQuestView();
         StartTimer();
     }
 
@@ -70,8 +82,15 @@ public class QuestController : MonoBehaviour
         points += PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential);
         points += TraitEvaluator.Evaluate(currenQuest.trait, personDetails.trait);
 
-        Debug.Log("Evalaution: " + points);
+        PlayerController.Instance.AddScore(points);
         StartNewQuest();
+    }
+
+    public void UpdateQuestView()
+    {
+        ageText.text = currenQuest.age.ToString();
+        potentailText.text = currenQuest.potential.ToString();
+        traitText.text = currenQuest.trait.ToString();
     }
 
     public void QuestOver()

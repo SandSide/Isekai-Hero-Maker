@@ -58,4 +58,12 @@ public class NPCController : MonoBehaviour
     {
         QuestController.Instance.EvaluateQuestResult(npcDetails);
     }
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.CompareTag("Environment"))
+        {
+            currentChangeInterval = Random.Range(2, maxChangeDirectionInterval + 1);
+            targetDirection = Random.onUnitSphere*10;
+        }
+    }
 }

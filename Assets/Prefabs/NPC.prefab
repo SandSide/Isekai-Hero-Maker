@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5969670593688644952}
   - component: {fileID: 5969670593688644955}
   - component: {fileID: 5969670593688644954}
-  - component: {fileID: 7323602066787041280}
+  - component: {fileID: 4511829581554904600}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57cc811cffc24334fb438e5d3c501b56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,8 +124,8 @@ MonoBehaviour:
   currentChangeInterval: 0
   targetDirection: {x: 0, y: 0}
   canMove: 0
---- !u!58 &7323602066787041280
-CircleCollider2D:
+--- !u!70 &4511829581554904600
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,6 +137,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Offset: {x: -0.011240244, y: -0.06744099}
+  m_Size: {x: 0.5857196, y: 0.865118}
+  m_Direction: 0
