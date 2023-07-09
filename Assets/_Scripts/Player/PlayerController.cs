@@ -14,14 +14,17 @@ public class PlayerController : MonoBehaviour
     }
     
     private int score = 0;
+    public int Score 
+    {
+         get { return score; }
+         set
+         {
+            score = value;
+            scoreText.text = "Score\n" + score.ToString();
+         }
+    }
 
     public TMP_Text scoreText;
-    
-    public void AddScore(int value)
-    {
-        score += value; 
-        scoreText.text = score.ToString();
-    }
 
     void Awake()
     {
@@ -38,6 +41,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        AddScore(0);
+        Score = 0;
+    }
+
+    public void AddScore(int value)
+    {
+        Score += value; 
     }
 }

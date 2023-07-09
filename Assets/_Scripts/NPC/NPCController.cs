@@ -57,13 +57,14 @@ public class NPCController : MonoBehaviour
     public void Die()
     {
         QuestController.Instance.EvaluateQuestResult(npcDetails);
+        AudioManager.instance.PlaySimultaneous("kill");
     }
     public void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.CompareTag("Environment"))
+        if(col.gameObject.CompareTag("Environment") || col.gameObject.CompareTag("NPC"))
         {
-            currentChangeInterval = Random.Range(2, maxChangeDirectionInterval + 1);
-            targetDirection = Random.onUnitSphere*10;
+            targetDirection = -targetDirection;
+            // targetDirection = Random.onUnitSphere*10;
         }
     }
 }

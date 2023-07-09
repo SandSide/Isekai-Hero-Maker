@@ -65,7 +65,7 @@ public class QuestController : MonoBehaviour
     public void StartNewQuest()
     {
         currenQuest = QuestFactory.CreateQuest(minAge, maxAge);
-        NPCController.speed++;
+        NPCController.speed = Mathf.Min(NPCController.speed + 1, 5);
 
         UpdateQuestView();
         StartTimer();
