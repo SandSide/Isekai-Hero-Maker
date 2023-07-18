@@ -22,10 +22,7 @@ public class TruckController : MonoBehaviour
     private bool moveForward = false;
     private bool reverse = false;
     private bool rotate = false;
-
     private float currentTurnRate = 0f;
-
-    Vector2 moveDirection = Vector2.right;
 
     // Start is called before the first frame update
     void Start()
@@ -47,10 +44,10 @@ public class TruckController : MonoBehaviour
         if(GameManager.Instance.IsGameOver)
             return;
 
-        Move();
+        HandleMove();
     }
 
-    public void Move()
+    public void HandleMove()
     {
         rb.velocity = transform.right * currentSpeed;
         

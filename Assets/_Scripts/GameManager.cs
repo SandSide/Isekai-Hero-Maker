@@ -4,13 +4,7 @@ using UnityEngine;
 using TMPro;
 public class GameManager : MonoBehaviour
 {
-
-    private static GameManager _instance;
-
-    public static GameManager Instance
-    {
-        get { return _instance; }
-    }
+    public static GameManager Instance {get; private set;}
 
     public QuestController questController;
 
@@ -27,27 +21,21 @@ public class GameManager : MonoBehaviour
             isGameOver = value; 
 
             if(isGameOver)
-            {
-                DisplayGameOverView();  
-                AudioManager.instance.Play("game over");
-            }
-
+                HandleGameOver();  
         }
     }
     
     void Awake()
     {
-        if (_instance == null)
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
         }
         else
         {
             Destroy(gameObject);
-            return;
         }
     }
-
 
     // Start is called before the first frame update
     void Start()
@@ -55,16 +43,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StartLevel());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public IEnumerator StartLevel()
     {
         yield return new WaitForSeconds(5f);
         questController.StartNewQuest();
+    }
+
+    public void HandleGameOver()
+    {
+        AudioManager.instance.Play("game over");
+        DisplayGameOverView();
     }
 
     public void DisplayGameOverView()
