@@ -8,8 +8,7 @@ public class GameManager : MonoBehaviour
 
     public QuestController questController;
 
-    public GameObject gameOverView;
-    public TMP_Text scoreText;
+
 
     private bool isGameOver = false;
 
@@ -52,12 +51,6 @@ public class GameManager : MonoBehaviour
     public void HandleGameOver()
     {
         AudioManager.instance.Play("game over");
-        DisplayGameOverView();
-    }
-
-    public void DisplayGameOverView()
-    {
-        gameOverView.SetActive(true);
-        scoreText.text = "Score: " + PlayerController.Instance.Score.ToString();
+        UIManager.Instance.gameOverUI.Show(PlayerController.Instance.Score);
     }
 }

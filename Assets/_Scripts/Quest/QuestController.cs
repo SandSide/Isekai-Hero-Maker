@@ -5,8 +5,7 @@ using TMPro;
 
 public class QuestController : MonoBehaviour
 {
-    private static QuestController _instance;
-
+    public static QuestController Instance {get; private set;}
     public Quest currenQuest;
 
     [Header("Timer Options")]
@@ -19,21 +18,11 @@ public class QuestController : MonoBehaviour
     public int minAge;
     public int maxAge;
 
-    [Header("Quest UI")]
-    public TMP_Text ageText;
-    public TMP_Text potentailText;
-    public TMP_Text traitText;
-
-    public static QuestController Instance
-    {
-        get{ return _instance;}
-    }
-
     // Start is called before the first frame update
     void Awake()
     {
-        if(_instance == null)
-            _instance = this;
+        if(Instance == null)
+            Instance = this;
         else   
             Destroy(gameObject);
     }
@@ -88,14 +77,12 @@ public class QuestController : MonoBehaviour
 
     public void UpdateQuestView()
     {
-        ageText.text = currenQuest.age.ToString();
-        potentailText.text = currenQuest.potential.ToString();
-        traitText.text = currenQuest.trait.ToString();
+        UIManager.Instance.questUI.Update(currenQuest);
     }
 
     public void QuestOver()
     {
-        GameManager.Instance.IsGameOver = true;
         questActive = false;
+        GameManager.Instance.IsGameOver = true;
     }
 }
