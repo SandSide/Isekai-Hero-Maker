@@ -6,6 +6,9 @@ using UnityEngine;
 public class TruckController : MonoBehaviour
 {
 
+    public SpriteRenderer sprite;
+
+    [Header("Control Parameters")]
     //public int speed = 0;
     public float maxSpeed = 1;
     public float maxReverseSpeed = 1;
@@ -35,6 +38,7 @@ public class TruckController : MonoBehaviour
     {        
         if(GameManager.Instance.IsGameOver)
                 return;
+
         HandleInput();
     }
 
@@ -58,6 +62,7 @@ public class TruckController : MonoBehaviour
     {
         HandleMovementInput();
         HandleTurningInput();
+        HandleSpriteRendering();
     }
 
     public void HandleMovementInput()
@@ -126,6 +131,20 @@ public class TruckController : MonoBehaviour
             currentTurnRate = 0f;
             rotate = false;
         }
+    }
+
+    public void HandleSpriteRendering()
+    {
+        Vector2 velocity = rb.velocity;
+
+        if(velocity.x > 0 && currentSpeed > 0)
+            sprite.flipY = false;
+        else if(velocity.x < 0 && currentSpeed > 0)
+            sprite.flipY = true;
+        else if(velocity.x > 0 && currentSpeed < 0)
+            sprite.flipY = true;
+        else if(velocity.x < 0 && currentSpeed < 0)
+            sprite.flipY = false;
     }
 
     public void OnCollisionEnter2D(Collision2D col)
