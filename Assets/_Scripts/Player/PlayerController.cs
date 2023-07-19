@@ -7,7 +7,6 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     private static PlayerController _instance;
-
     public static PlayerController Instance
     {
         get { return _instance; }
@@ -20,11 +19,9 @@ public class PlayerController : MonoBehaviour
          set
          {
             score = value;
-            scoreText.text = "Score\n" + score.ToString();
+            UIManager.Instance.UpdateScore(score);
          }
     }
-
-    public TMP_Text scoreText;
 
     void Awake()
     {

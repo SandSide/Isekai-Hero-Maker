@@ -6,8 +6,6 @@ using TMPro;
 public class QuestController : MonoBehaviour
 {
     public static QuestController Instance {get; private set;}
-    public Quest currenQuest;
-
     [Header("Timer Options")]
     public float timer;
     public float defaultTimeForQuest;
@@ -16,6 +14,17 @@ public class QuestController : MonoBehaviour
     public bool questActive = false;
     public int minAge;
     public int maxAge;
+
+    public Quest currentQuest;
+    public Quest CurrentQuest 
+    { 
+        get { return currentQuest;}
+        set 
+        {
+            currentQuest = value;
+            HandleNewQuest();
+        }
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -50,31 +59,29 @@ public class QuestController : MonoBehaviour
 
     public void StartNewQuest()
     {
-        currenQuest = QuestFactory.CreateQuest(minAge, maxAge);
-        NPCController.speed = Mathf.Min(NPCController.speed + 1, 5);
-
-        UpdateQuestView();
+        CurrentQuest = QuestFactory.CreateQuest(minAge, maxAge);
         StartTimer();
     }
 
     public void EvaluateQuestResult(Person personDetails)
     {
-        if(currenQuest == null)
+        if(CurrentQuest == null)
             return;
 
         int points = 0;
 
-        points += AgeEvaluator.Evaluate(currenQuest.age, personDetails.age);
-        points += PotentialEvaluator.Evaluate(currenQuest.potential, personDetails.potential);
-        points += TraitEvaluator.Evaluate(currenQuest.trait, personDetails.trait);
+        points += AgeEvaluator.Evaluate(CurrentQuest.age, personDetails.age);
+        points += PotentialEvaluator.Evaluate(CurrentQuest.potential, personDetails.potential);
+        points += TraitEvaluator.Evaluate(CurrentQuest.trait, personDetails.trait);
 
         PlayerController.Instance.AddScore(points);
         StartNewQuest();
     }
 
-    public void UpdateQuestView()
+    public void HandleNewQuest()
     {
-        UIManager.Instance.questUI.UpdateUIContent(currenQuest);
+        //NPCController.speed = Mathf.Min(NPCController.speed + 1, 5);
+        UIManager.Instance.questUI.UpdateUIContent(CurrentQuest);
     }
 
     public void QuestOver()
