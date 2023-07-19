@@ -11,7 +11,6 @@ public class QuestController : MonoBehaviour
     [Header("Timer Options")]
     public float timer;
     public float defaultTimeForQuest;
-    public TMP_Text timerText;
 
     [Header("Quest Options")]
     public bool questActive = false;
@@ -36,9 +35,7 @@ public class QuestController : MonoBehaviour
         if(questActive)
         {
             timer -= Time.deltaTime;
-
-            string temp = ((int)timer).ToString();
-            timerText.SetText(temp);
+            UIManager.Instance.UpdateTimer(timer);
 
             if(timer < 0)
                 QuestOver();
@@ -77,7 +74,7 @@ public class QuestController : MonoBehaviour
 
     public void UpdateQuestView()
     {
-        UIManager.Instance.questUI.Update(currenQuest);
+        UIManager.Instance.questUI.UpdateUIContent(currenQuest);
     }
 
     public void QuestOver()

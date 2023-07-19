@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameOverUI : MonoBehaviour
+public class GameOverUI : UIElementBase
 {
     [Header("UI Elements")]
-    public GameObject gameOverView;
     public TMP_Text scoreText;
 
-    public void Show(int score)
+    public void UpdateScore(int score)
     {
         scoreText.text = "Score: " + PlayerController.Instance.Score.ToString();
-        gameOverView.SetActive(true);
     }
 }

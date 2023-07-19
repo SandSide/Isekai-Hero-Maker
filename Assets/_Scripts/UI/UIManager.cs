@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [Header("UIs")]
     public GameOverUI gameOverUI;
     public QuestUI questUI;
+    public GameUI gameUI;
 
     void Awake()
     {
@@ -22,8 +23,34 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        ToggleUIElement(gameOverUI, false);
+        ToggleUIElement(questUI, false);
+        ToggleUIElement(gameUI, false);
+    }
+
+    public void ToggleUIElement(IUIElement uiElement, bool show)
+    {
+        uiElement.ToggleUiElement(show);
+    }
+
+    public void UpdateScore(int score)
+    {
+        gameUI.UpdateScore(score);
+    }
+
+    public void UpdateTimer(float time)
+    {
+        gameUI.UpdateTimer(time);
+    }
+
     public void ShowGameOverUI(int score)
     {
-        gameOverUI.Show(score);
+        gameOverUI.UpdateScore(score);
+
+        ToggleUIElement(gameOverUI, true);
+        ToggleUIElement(questUI, false);
+        ToggleUIElement(gameUI, false);
     }
 }

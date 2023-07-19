@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
 
     public QuestController questController;
 
-
-
     private bool isGameOver = false;
 
     public bool IsGameOver
@@ -46,11 +44,13 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         questController.StartNewQuest();
+        UIManager.Instance.ToggleUIElement(UIManager.Instance.gameUI, true);
+        UIManager.Instance.ToggleUIElement(UIManager.Instance.questUI, true);
     }
 
     public void HandleGameOver()
     {
         AudioManager.instance.Play("game over");
-        UIManager.Instance.gameOverUI.Show(PlayerController.Instance.Score);
+        UIManager.Instance.ShowGameOverUI(PlayerController.Instance.Score);
     }
 }
