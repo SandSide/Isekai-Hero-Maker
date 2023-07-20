@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameOverUI gameOverUI;
     public QuestUI questUI;
     public GameUI gameUI;
+    public NPCDetailsUI npcDetailsUI;
 
     void Awake()
     {
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
         ToggleUIElement(gameOverUI, false);
         ToggleUIElement(questUI, false);
         ToggleUIElement(gameUI, false);
+        ToggleUIElement(npcDetailsUI, false);
     }
 
     public void ToggleUIElement(IUIElement uiElement, bool show)
@@ -52,5 +54,11 @@ public class UIManager : MonoBehaviour
         ToggleUIElement(gameOverUI, true);
         ToggleUIElement(questUI, false);
         ToggleUIElement(gameUI, false);
+        ToggleUIElement(npcDetailsUI, false);
+    }
+
+    public void UpdateNPCDetails(Person details)
+    {
+        npcDetailsUI.UpdateDetails(details);
     }
 }

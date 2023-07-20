@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
         Score = 0;
     }
 
+    void Update()
+    {
+        
+    }
+
     public void AddScore(int value)
     {
         Score += value; 

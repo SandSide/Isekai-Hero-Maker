@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class NPCController : MonoBehaviour
+public class NPCController : HoverableItem
 {
     public static float speed = 1f;
     public float maxChangeDirectionInterval = 8f;
@@ -66,5 +66,26 @@ public class NPCController : MonoBehaviour
             targetDirection = -targetDirection;
             // targetDirection = Random.onUnitSphere*10;
         }
+    }
+
+    public override void OnHover()
+    {
+        UIManager.Instance.UpdateNPCDetails(npcDetails);
+        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
+    }
+
+    public override void OnHoverExit()
+    {
+        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
+    }
+
+    public void OnMouseEnter()
+    {
+        OnHover();
+    }
+
+    public void OnMouseExit()
+    {
+        OnHoverExit();
     }
 }
