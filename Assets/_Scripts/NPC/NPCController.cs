@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class NPCController : HoverableItem
 {
+   [SerializeField] private Material myMaterial;
+
     public static float speed = 1f;
     public float maxChangeDirectionInterval = 8f;
     public float currentChangeInterval;
@@ -72,11 +74,15 @@ public class NPCController : HoverableItem
     {
         UIManager.Instance.UpdateNPCDetails(npcDetails);
         UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
+
+    
+        GetComponent<Renderer>().material.SetFloat("_ShowOutline", 0f);
     }
 
     public override void OnHoverExit()
     {
         UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
+        GetComponent<Renderer>().material.SetFloat("_ShowOutline", 1f);
     }
 
     public void OnMouseEnter()
@@ -84,8 +90,9 @@ public class NPCController : HoverableItem
         OnHover();
     }
 
-    // public void OnMouseExit()
-    // {
-    //     OnHoverExit();
-    // }
+
+    public void OnMouseExit()
+    {
+        OnHoverExit();
+    }
 }
