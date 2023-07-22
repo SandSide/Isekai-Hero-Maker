@@ -84,8 +84,8 @@ public class NPCController : HoverableItem
         OnHover();
     }
 
-    public void OnMouseExit()
-    {
-        OnHoverExit();
-    }
+    // public void OnMouseExit()
+    // {
+    //     OnHoverExit();
+    // }
 }
