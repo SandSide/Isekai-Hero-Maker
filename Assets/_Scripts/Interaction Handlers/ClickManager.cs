@@ -10,7 +10,41 @@ public class ClickManager : MonoBehaviour
         get  { return currentNPC; }
         set 
         { 
-            currentNPC = value; 
+            if(currentNPC != value)
+            {
+                HandleBeforeNPCChange();
+                currentNPC = value; 
+            }
         }
+    }
+
+    void Update()
+    {
+        HandleClick();
+    }
+
+    public void HandleClick()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            var temp = GeneralUtils.CheckPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition), .5f);
+
+            if(temp != null && temp is IClickable)
+            {
+                CurrentNPC = temp;
+            }
+        }
+    }
+
+    public void HandleBeforeNPCChange()
+    {
+        IClickable clickable = CurrentNPC as IClickable;
+        clickable?.OnClickExit();
+    }
+
+    public void HandleAfterNPCChange()
+    {
+        IClickable clickable = CurrentNPC as IClickable;
+        clickable?.OnClick();
     }
 }

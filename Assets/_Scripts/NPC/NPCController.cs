@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class NPCController : HoverableItem
+public class NPCController : HoverableItem, IClickable
 {
    [SerializeField] private Material myMaterial;
 
@@ -91,6 +91,11 @@ public class NPCController : HoverableItem
         UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
     
         GetComponent<Renderer>().material.SetFloat("_ShowOutline", 0f);
+    }
+
+    public void OnClickExit()
+    {
+        throw new System.NotImplementedException();
     }
 
     // public void OnMouseEnter()
