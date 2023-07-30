@@ -5,12 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class NPCController : HoverableItem, IClickable
 {
-   [SerializeField] private Material myMaterial;
+    [SerializeField] 
+    public Material onClickMaterial;
+    public Material defaultMaterial;
+    public Shader onClickShader;
 
+    [Header("Stats")]
     public static float speed = 1f;
     public float maxChangeDirectionInterval = 8f;
     public float currentChangeInterval;
-    public Vector2 targetDirection;
+    private Vector2 targetDirection;
     public bool canMove = false;
 
     public Person npcDetails;
@@ -74,15 +78,11 @@ public class NPCController : HoverableItem, IClickable
     {
         UIManager.Instance.UpdateNPCDetails(npcDetails);
         UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
-
-    
-        GetComponent<Renderer>().material.SetFloat("_ShowOutline", 0f);
     }
 
     public override void OnHoverExit()
     {
         UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
-        GetComponent<Renderer>().material.SetFloat("_ShowOutline", 1f);
     }
 
     public void OnClick()
@@ -90,12 +90,14 @@ public class NPCController : HoverableItem, IClickable
         UIManager.Instance.UpdateNPCDetails(npcDetails);
         UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
     
-        GetComponent<Renderer>().material.SetFloat("_ShowOutline", 0f);
+        GetComponent<Renderer>().material = onClickMaterial;
+        GetComponent<Renderer>().material.shader = onClickShader;
     }
 
     public void OnClickExit()
     {
-        throw new System.NotImplementedException();
+        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
+        GetComponent<Renderer>().material = defaultMaterial;
     }
 
     // public void OnMouseEnter()

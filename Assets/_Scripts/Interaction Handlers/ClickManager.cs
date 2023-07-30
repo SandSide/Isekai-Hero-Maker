@@ -12,8 +12,9 @@ public class ClickManager : MonoBehaviour
         { 
             if(currentNPC != value)
             {
-                HandleBeforeNPCChange();
+                BeforeNPCChange();
                 currentNPC = value; 
+                AfterNPCChange();
             }
         }
     }
@@ -27,6 +28,7 @@ public class ClickManager : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Do it");
             var temp = GeneralUtils.CheckPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition), .5f);
 
             if(temp != null && temp is IClickable)
@@ -36,7 +38,7 @@ public class ClickManager : MonoBehaviour
         }
     }
 
-    public void HandleBeforeNPCChange()
+    public void BeforeNPCChange()
     {
         if(CurrentNPC == null)
             return;
@@ -45,11 +47,11 @@ public class ClickManager : MonoBehaviour
         clickable?.OnClickExit();
     }
 
-    public void HandleAfterNPCChange()
+    public void AfterNPCChange()
     {
         if(CurrentNPC == null)
             return;
-            
+
         IClickable clickable = CurrentNPC as IClickable;
         clickable?.OnClick();
     }

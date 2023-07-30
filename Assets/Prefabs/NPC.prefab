@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0b8f12f67b68fb944acf56add9f7b91b, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,10 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5273001e92bc25e4daa2c679eb6da144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  onClickMaterial: {fileID: 2100000, guid: 0b8f12f67b68fb944acf56add9f7b91b, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  onClickShader: {fileID: -6465566751694194690, guid: b57dfaa24746ed147b782e558a92c70e, type: 3}
   maxChangeDirectionInterval: 8
   currentChangeInterval: 0
-  targetDirection: {x: 0, y: 0}
   canMove: 0
 --- !u!70 &4511829581554904600
 CapsuleCollider2D:
