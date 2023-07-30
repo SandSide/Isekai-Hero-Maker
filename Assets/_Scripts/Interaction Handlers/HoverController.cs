@@ -24,60 +24,27 @@ public class HoverController : MonoBehaviour
         }
     }
 
-    // private NPCController currentClickedNPC;
-    // public NPCController CurrentClickedNPC
-    // {
-    //     get { return currentClickedNPC
-    //     ; }
-    //     set { currentClickedNPC
-    //      = value; }
-    // }
-    
+
     // Update is called once per frame
     void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var npc = CheckPosition(mousePos);
+        var npc = GeneralUtils.CheckPosition(mousePos, checkRadius);
 
        CurrentNPC = npc;
 
-        // if(npc != null)
-        // {
-        //     CurrentNPC = npc;
-        // }  
-        // else 
-        // {
-        //     HandleBeforeNPCChange();
-        //     CurrentNPC = null;
-        // }
     }
 
-    public NPCController CheckPosition(Vector2 pos)
-    {
-        // Check for obejcts around mouse pos
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, checkRadius);
-        Collider2D col = colliders.Where(collider => collider.GetComponent<IHover>() != null)
-                            .OrderBy(collider => collider.gameObject.GetInstanceID())
-                            .FirstOrDefault();
-
-        if(col != null)
-        {
-            if(col.gameObject.CompareTag("NPC"))
-                return col.GetComponent<NPCController>();
-        }
-
-        return null;
-    }
 
     public void HandleBeforeNPCChange()
     {
-        IHover hover = CurrentNPC as IHover;
+        IHoverable hover = CurrentNPC as IHoverable;
         hover?.OnHoverExit();
     }
 
     public void HandleAfterNPCChange()
     {
-        IHover hover = CurrentNPC as IHover;
+        IHoverable hover = CurrentNPC as IHoverable;
         hover?.OnHover();
     }
 
