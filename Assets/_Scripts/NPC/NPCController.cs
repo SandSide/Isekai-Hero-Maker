@@ -85,14 +85,22 @@ public class NPCController : HoverableItem
         GetComponent<Renderer>().material.SetFloat("_ShowOutline", 1f);
     }
 
-    public void OnMouseEnter()
+    public void OnClick()
     {
-        OnHover();
+        UIManager.Instance.UpdateNPCDetails(npcDetails);
+        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
+    
+        GetComponent<Renderer>().material.SetFloat("_ShowOutline", 0f);
     }
 
+    // public void OnMouseEnter()
+    // {
+    //     OnHover();
+    // }
 
-    public void OnMouseExit()
-    {
-        OnHoverExit();
-    }
+
+    // public void OnMouseExit()
+    // {
+    //     OnHoverExit();
+    // }
 }

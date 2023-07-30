@@ -19,9 +19,6 @@ public class NPCSpawner : MonoBehaviour
         //     return;
 
         var newNPC = Instantiate(prefab, pos, Quaternion.identity, container.transform.parent);
-
-
-
         var npcDetails = PersonFactory.CreatePerson(12, 65);
         newNPC.GetComponent<NPCController>().Init(npcDetails);
     }
