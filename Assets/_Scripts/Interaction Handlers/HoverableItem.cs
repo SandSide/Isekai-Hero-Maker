@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoverableItem : MonoBehaviour, IHover
+public class HoverableItem : MonoBehaviour, IHoverable
 {
     public virtual void OnHover()
     {

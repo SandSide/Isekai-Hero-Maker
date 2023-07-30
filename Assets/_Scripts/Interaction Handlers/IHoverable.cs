@@ -1,4 +1,4 @@
-public interface IHover 
+public interface IHoverable 
 {
     void OnHover();
     void OnHoverExit();
