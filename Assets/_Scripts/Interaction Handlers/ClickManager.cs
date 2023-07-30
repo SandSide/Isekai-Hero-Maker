@@ -38,12 +38,18 @@ public class ClickManager : MonoBehaviour
 
     public void HandleBeforeNPCChange()
     {
+        if(CurrentNPC == null)
+            return;
+
         IClickable clickable = CurrentNPC as IClickable;
         clickable?.OnClickExit();
     }
 
     public void HandleAfterNPCChange()
     {
+        if(CurrentNPC == null)
+            return;
+            
         IClickable clickable = CurrentNPC as IClickable;
         clickable?.OnClick();
     }
