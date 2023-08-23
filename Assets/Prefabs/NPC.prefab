@@ -123,6 +123,7 @@ MonoBehaviour:
   onClickMaterial: {fileID: 2100000, guid: 0b8f12f67b68fb944acf56add9f7b91b, type: 2}
   defaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   onClickShader: {fileID: -6465566751694194690, guid: b57dfaa24746ed147b782e558a92c70e, type: 3}
+  defaultShader: {fileID: 4800000, guid: e260cfa7296ee7642b167f1eb5be5023, type: 3}
   maxChangeDirectionInterval: 8
   currentChangeInterval: 0
   canMove: 0

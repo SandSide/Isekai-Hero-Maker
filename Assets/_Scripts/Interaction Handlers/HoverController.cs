@@ -47,7 +47,11 @@ public class HoverController : MonoBehaviour
     public void HandleAfterNPCChange()
     {
         if(CurrentNPC == null)
+        {
+            //GetComponent<ClickManager>().ShowCurrentNPC();
             return;
+        }
+
 
         IHoverable hover = CurrentNPC as IHoverable;
         hover?.OnHover();

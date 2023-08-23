@@ -5,7 +5,8 @@ using TMPro;
 
 public class QuestController : MonoBehaviour
 {
-    public static QuestController Instance {get; private set;}
+    public static QuestController Instance { get; private set; }
+    
     [Header("Timer Options")]
     public float timer;
     public float defaultTimeForQuest;
@@ -30,7 +31,10 @@ public class QuestController : MonoBehaviour
     void Awake()
     {
         if(Instance == null)
+        {
             Instance = this;
+            GameEvents.Instance.onNPCDied += EvaluateQuestResult;
+        }
         else   
             Destroy(gameObject);
     }
@@ -51,6 +55,11 @@ public class QuestController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        GameEvents.Instance.onNPCDied -= EvaluateQuestResult;
+    }
+
     public void StartTimer()
     {
         timer = defaultTimeForQuest;
@@ -63,10 +72,12 @@ public class QuestController : MonoBehaviour
         StartTimer();
     }
 
-    public void EvaluateQuestResult(Person personDetails)
+    public void EvaluateQuestResult(NPCController npc)
     {
         if(CurrentQuest == null)
             return;
+
+        Person personDetails = npc.npcDetails;
 
         int points = 0;
 

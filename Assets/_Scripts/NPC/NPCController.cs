@@ -9,6 +9,7 @@ public class NPCController : HoverableItem, IClickable
     public Material onClickMaterial;
     public Material defaultMaterial;
     public Shader onClickShader;
+    public Shader defaultShader;
 
     [Header("Stats")]
     public static float speed = 1f;
@@ -20,6 +21,8 @@ public class NPCController : HoverableItem, IClickable
     public Person npcDetails;
     
     Rigidbody2D rb;
+
+    public bool IsClicked { get; set; } = false;
 
     // Start is called before the first frame update
     void Start()
@@ -62,30 +65,42 @@ public class NPCController : HoverableItem, IClickable
 
     public void Die()
     {
-        QuestController.Instance.EvaluateQuestResult(npcDetails);
-        AudioManager.instance.PlaySimultaneous("kill");
+        GameEvents.Instance.NPCDied(this);
+        //QuestController.Instance.EvaluateQuestResult(npcDetails);
+        //AudioManager.instance.PlaySimultaneous("kill");
     }
+
     public void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.CompareTag("Environment") || col.gameObject.CompareTag("NPC"))
         {
             targetDirection = -targetDirection;
-            // targetDirection = Random.onUnitSphere*10;
         }
     }
 
     public override void OnHover()
     {
-        UIManager.Instance.UpdateNPCDetails(npcDetails);
-        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
+        AddOutline();
     }
 
     public override void OnHoverExit()
     {
-        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
+        RemoveOutline();
     }
 
     public void OnClick()
+    {
+        IsClicked = true;
+        AddOutline();
+    }
+
+    public void OnClickExit()
+    {
+        IsClicked = false;
+        RemoveOutline();
+    }
+
+    public void AddOutline()
     {
         UIManager.Instance.UpdateNPCDetails(npcDetails);
         UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
@@ -94,20 +109,13 @@ public class NPCController : HoverableItem, IClickable
         GetComponent<Renderer>().material.shader = onClickShader;
     }
 
-    public void OnClickExit()
+    public void RemoveOutline()
     {
-        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
-        GetComponent<Renderer>().material = defaultMaterial;
+        if(!IsClicked)
+        {
+            UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
+            GetComponent<Renderer>().material = defaultMaterial;
+            GetComponent<Renderer>().material.shader = defaultShader;
+        }
     }
-
-    // public void OnMouseEnter()
-    // {
-    //     OnHover();
-    // }
-
-
-    // public void OnMouseExit()
-    // {
-    //     OnHoverExit();
-    // }
 }
