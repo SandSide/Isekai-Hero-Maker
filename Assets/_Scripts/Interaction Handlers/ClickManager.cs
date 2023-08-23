@@ -14,9 +14,9 @@ public class ClickManager : MonoBehaviour
         { 
             if(currentNPC != value)
             {
-                BeforeNPCChange();
+                BeforeChange();
                 currentNPC = value; 
-                AfterNPCChange();
+                AfterChange();
             }
         }
     }
@@ -24,14 +24,26 @@ public class ClickManager : MonoBehaviour
     void Awake()
     {
         if(Instance == null)
+        {
             Instance = this;
+        }
         else   
+        {
             Destroy(gameObject);
+            return;
+        }
+            
+        Configuration();
     }
 
     void Update()
     {
         HandleClick();
+    }
+
+    public void Configuration()
+    {
+        GameEvents.Instance.onNPCDied += HandleNPCDeath;
     }
 
     public void HandleClick()
@@ -47,7 +59,7 @@ public class ClickManager : MonoBehaviour
         }
     }
 
-    public void BeforeNPCChange()
+    public void BeforeChange()
     {
         if(CurrentNPC == null)
             return;
@@ -56,13 +68,24 @@ public class ClickManager : MonoBehaviour
         clickable?.OnClickExit();
     }
 
-    public void AfterNPCChange()
+    public void AfterChange()
     {
         if(CurrentNPC == null)
+        {
+            Debug.Log($"Remove CLICKED NPC UI");
             return;
-
+        }
+     
         IClickable clickable = CurrentNPC as IClickable;
         clickable?.OnClick();
+    }
+
+    public void HandleNPCDeath(NPCController npc)
+    {
+        if(CurrentNPC == npc)
+        {
+            CurrentNPC = null;
+        }
     }
 
     public void ShowCurrentNPC()

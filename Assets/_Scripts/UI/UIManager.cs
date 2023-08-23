@@ -21,7 +21,10 @@ public class UIManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        Configuration();
     }
 
     void Start()
@@ -30,6 +33,11 @@ public class UIManager : MonoBehaviour
         ToggleUIElement(questUI, false);
         ToggleUIElement(gameUI, false);
         ToggleUIElement(npcDetailsUI, false);
+    }
+
+    public void Configuration()
+    {
+        GameEvents.Instance.onPlayerScoreChange += UpdateScore;
     }
 
     public void ToggleUIElement(IUIElement uiElement, bool show)

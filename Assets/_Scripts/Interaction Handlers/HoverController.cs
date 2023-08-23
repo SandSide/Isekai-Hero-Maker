@@ -6,7 +6,6 @@ using System;
 
 public class HoverController : MonoBehaviour
 {
-
     public float checkRadius = 1f;
 
     private NPCController currentNPC;
@@ -24,6 +23,10 @@ public class HoverController : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -32,7 +35,6 @@ public class HoverController : MonoBehaviour
         var npc = GeneralUtils.CheckPosition(mousePos, checkRadius);
 
         CurrentNPC = npc;
-
     }
 
     public void HandleBeforeNPCChange()
@@ -52,9 +54,16 @@ public class HoverController : MonoBehaviour
             return;
         }
 
-
         IHoverable hover = CurrentNPC as IHoverable;
         hover?.OnHover();
+    }
+
+    public void HandleNPCDeath(NPCController npc)
+    {
+        if (CurrentNPC == npc)
+        {
+            CurrentNPC = null;
+        }
     }
 
     void OnDrawGizmos()
@@ -62,5 +71,4 @@ public class HoverController : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Gizmos.DrawWireSphere(mousePos, checkRadius);
     } 
-
 }

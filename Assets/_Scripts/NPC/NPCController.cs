@@ -66,8 +66,6 @@ public class NPCController : HoverableItem, IClickable
     public void Die()
     {
         GameEvents.Instance.NPCDied(this);
-        //QuestController.Instance.EvaluateQuestResult(npcDetails);
-        //AudioManager.instance.PlaySimultaneous("kill");
     }
 
     public void OnCollisionEnter2D(Collision2D col)

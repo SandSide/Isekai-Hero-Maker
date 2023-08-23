@@ -15,12 +15,12 @@ public class PlayerController : MonoBehaviour
     private int score = 0;
     public int Score 
     {
-         get { return score; }
-         set
-         {
+        get { return score; }
+        set
+        {
             score = value;
-            UIManager.Instance.UpdateScore(score);
-         }
+            GameEvents.Instance.PlayerScoreChange(score);
+        }
     }
 
     void Awake()

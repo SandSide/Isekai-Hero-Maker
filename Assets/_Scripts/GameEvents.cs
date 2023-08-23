@@ -21,4 +21,11 @@ public class GameEvents : MonoBehaviour
         if(onNPCDied != null)
             onNPCDied?.Invoke(npc);
     }
+
+    public event Action<int> onPlayerScoreChange;
+    public void PlayerScoreChange(int score)
+    {
+        if(onPlayerScoreChange != null)
+            onPlayerScoreChange?.Invoke(score);
+    }
 }
