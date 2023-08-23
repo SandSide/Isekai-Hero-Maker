@@ -16,16 +16,16 @@ public class HoverController : MonoBehaviour
         { 
             if(currentNPC != value)
             {
-                HandleBeforeNPCChange();
+                BeforeChange();
                 currentNPC = value; 
-                HandleAfterNPCChange();
+                AfterChange();
             }
         }
     }
 
     void Awake()
     {
-
+        Configure();
     }
 
     // Update is called once per frame
@@ -37,7 +37,12 @@ public class HoverController : MonoBehaviour
         CurrentNPC = npc;
     }
 
-    public void HandleBeforeNPCChange()
+    public void Configure()
+    {
+        GameEvents.Instance.onNPCDied += HandleNPCDeath;
+    }
+
+    public void BeforeChange()
     {
         if(CurrentNPC == null)
             return;
@@ -46,11 +51,10 @@ public class HoverController : MonoBehaviour
         hover?.OnHoverExit();
     }
 
-    public void HandleAfterNPCChange()
+    public void AfterChange()
     {
         if(CurrentNPC == null)
         {
-            //GetComponent<ClickManager>().ShowCurrentNPC();
             return;
         }
 

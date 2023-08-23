@@ -12,12 +12,9 @@ public class ClickManager : MonoBehaviour
         get  { return currentNPC; }
         set 
         { 
-            if(currentNPC != value)
-            {
-                BeforeChange();
-                currentNPC = value; 
-                AfterChange();
-            }
+            BeforeChange();
+            currentNPC = value; 
+            AfterChange();
         }
     }
 
@@ -72,7 +69,7 @@ public class ClickManager : MonoBehaviour
     {
         if(CurrentNPC == null)
         {
-            Debug.Log($"Remove CLICKED NPC UI");
+            UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
             return;
         }
      
@@ -91,9 +88,11 @@ public class ClickManager : MonoBehaviour
     public void ShowCurrentNPC()
     {
         if(CurrentNPC == null)
+        {
+            UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
             return;
+        }
 
-        IClickable clickable = CurrentNPC as IClickable;
-        clickable?.OnClickExit();
+        GameEvents.Instance.DisplayPersonChange(CurrentNPC.npcDetails);
     }
 }

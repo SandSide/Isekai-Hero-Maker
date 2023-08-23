@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
     public void Configuration()
     {
         GameEvents.Instance.onPlayerScoreChange += UpdateScore;
+        GameEvents.Instance.onDisplayPersonChange += ChangeNPCDetails;
     }
 
     public void ToggleUIElement(IUIElement uiElement, bool show)
@@ -65,8 +66,9 @@ public class UIManager : MonoBehaviour
         ToggleUIElement(npcDetailsUI, false);
     }
 
-    public void UpdateNPCDetails(Person details)
+    public void ChangeNPCDetails(Person details)
     {
+        ToggleUIElement(npcDetailsUI, true);
         npcDetailsUI.UpdateDetails(details);
     }
 }

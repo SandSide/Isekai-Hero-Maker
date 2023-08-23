@@ -12,7 +12,10 @@ public class GameEvents : MonoBehaviour
         if(Instance == null)
             Instance = this;
         else   
+        {
             Destroy(gameObject);
+            return;
+        }
     }
 
     public event Action<NPCController> onNPCDied;
@@ -27,5 +30,11 @@ public class GameEvents : MonoBehaviour
     {
         if(onPlayerScoreChange != null)
             onPlayerScoreChange?.Invoke(score);
+    }
+
+    public event Action<Person> onDisplayPersonChange;
+    public void DisplayPersonChange(Person person)
+    {
+        onDisplayPersonChange?.Invoke(person);
     }
 }

@@ -66,6 +66,7 @@ public class NPCController : HoverableItem, IClickable
     public void Die()
     {
         GameEvents.Instance.NPCDied(this);
+        AudioManager.instance.Play("kill");
     }
 
     public void OnCollisionEnter2D(Collision2D col)
@@ -78,31 +79,32 @@ public class NPCController : HoverableItem, IClickable
 
     public override void OnHover()
     {
+        GameEvents.Instance.DisplayPersonChange(npcDetails);
         AddOutline();
     }
 
     public override void OnHoverExit()
     {
+        ClickManager.Instance.ShowCurrentNPC();
         RemoveOutline();
     }
 
     public void OnClick()
     {
         IsClicked = true;
+        GameEvents.Instance.DisplayPersonChange(npcDetails);
         AddOutline();
     }
 
     public void OnClickExit()
     {
         IsClicked = false;
+        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
         RemoveOutline();
     }
 
     public void AddOutline()
     {
-        UIManager.Instance.UpdateNPCDetails(npcDetails);
-        UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, true);
-    
         GetComponent<Renderer>().material = onClickMaterial;
         GetComponent<Renderer>().material.shader = onClickShader;
     }
@@ -111,7 +113,6 @@ public class NPCController : HoverableItem, IClickable
     {
         if(!IsClicked)
         {
-            UIManager.Instance.ToggleUIElement(UIManager.Instance.npcDetailsUI, false);
             GetComponent<Renderer>().material = defaultMaterial;
             GetComponent<Renderer>().material.shader = defaultShader;
         }
