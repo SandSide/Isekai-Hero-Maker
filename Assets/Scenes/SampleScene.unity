@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 99480049}
   - component: {fileID: 99480050}
   - component: {fileID: 99480051}
+  - component: {fileID: 99480052}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -186,6 +187,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questController: {fileID: 99480050}
+--- !u!114 &99480052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99480048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4921a0db4773dd478ea74b4302f3d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &109352124
 GameObject:
   m_ObjectHideFlags: 0
@@ -48096,7 +48109,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -48150,22 +48163,14 @@ CompositeCollider2D:
         Y: 0
       - X: -150000000
         Y: 0
-    - - X: 0
-        Y: 0
-      - X: -20000000
-        Y: 0
-      - X: -20000000
+    - - X: -20000000
         Y: 160000000
       - X: -80000000
         Y: 160000000
       - X: -80000000
         Y: 0
-      - X: -50000000
+      - X: -20000000
         Y: 0
-      - X: -50000000
-        Y: -10000000
-      - X: 0
-        Y: -10000000
     - - X: 270000000
         Y: -90000000
       - X: -220000000
@@ -48196,14 +48201,10 @@ CompositeCollider2D:
       - {x: 12.99997, y: 16}
       - {x: 7, y: 15.999971}
       - {x: 7.0000296, y: 0}
-    - - {x: -0.000029300001, y: -1}
-      - {x: -0.000029300001, y: 0}
-      - {x: -2, y: 0.0000294}
+    - - {x: -2.0000293, y: 0}
       - {x: -2.0000293, y: 16}
       - {x: -8, y: 15.999971}
       - {x: -7.9999704, y: 0}
-      - {x: -5, y: -0.0000294}
-      - {x: -4.999971, y: -1}
     - - {x: -15.000029, y: 0}
       - {x: -15.000029, y: 16}
       - {x: -21, y: 15.999971}
@@ -50458,7 +50459,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840975116}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2ab0440d9023e54c9d9f55acabbb2f3, type: 3}
   m_Name: 
@@ -50478,8 +50479,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5969670593688644959, guid: c7afab5e97ecf3f41891b7ab02533714, type: 3}
-  spawnArea: {x: 35, y: 20}
+  spawnArea: {x: 75, y: 40}
   container: {fileID: 354162117}
+  maxAttemps: 10
+  spawnCheckArea: 0.5
 --- !u!1 &1844846128
 GameObject:
   m_ObjectHideFlags: 0

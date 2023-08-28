@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PersonFactory : MonoBehaviour
 {
+
     public static Person CreatePerson(int minAge, int maxAge)
     {
         int age = Random.Range(minAge, maxAge + 1);
