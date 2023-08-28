@@ -41,17 +41,18 @@ public class NPCController : HoverableItem, IClickable
             if(currentChangeInterval < 0)
             {
                 currentChangeInterval = Random.Range(2, maxChangeDirectionInterval + 1);
-                targetDirection = Random.onUnitSphere*10;
+                targetDirection = GetNewDirection();
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, targetDirection, speed * Time.deltaTime);
+            //transform.position = Vector3.MoveTowards(transform.position, targetDirection, speed * Time.deltaTime);
+            transform.position += (Vector3)targetDirection * speed * Time.deltaTime;
         }
     }
 
     public void Init()
     {
         currentChangeInterval = Random.Range(2, maxChangeDirectionInterval + 1);
-        targetDirection = Random.onUnitSphere*10;
+        targetDirection  = GetNewDirection();
         canMove = true;
     }
 
@@ -59,7 +60,7 @@ public class NPCController : HoverableItem, IClickable
     {
         npcDetails = person;
         currentChangeInterval = Random.Range(2, maxChangeDirectionInterval + 1);
-        targetDirection = Random.onUnitSphere*10;
+        targetDirection = GetNewDirection();
         canMove = true;
     }
 
@@ -69,12 +70,59 @@ public class NPCController : HoverableItem, IClickable
         AudioManager.instance.Play("kill");
     }
 
+    public void OnCollisionStay2D(Collision2D col)
+    {
+        if(col.gameObject.CompareTag("Environment") || col.gameObject.CompareTag("NPC"))
+        {
+            targetDirection = GetNewDirection();
+        }
+    }
+
     public void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.CompareTag("Environment") || col.gameObject.CompareTag("NPC"))
         {
-            targetDirection = -targetDirection;
+            targetDirection = GetNewDirection();
         }
+    }
+
+    public Vector2 GetNewDirection()
+    {
+        float[] angles = { 0f, 45f, 90f, 135f, 180f, 225f, 270f, 315f };
+        //angles.
+
+        foreach (float angle in angles)
+        {
+            // Calculate the direction vector based on the angle
+            Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+
+            // Cast a ray in the current direction
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 5f);
+
+            if (!hit.collider.gameObject.CompareTag("Environment") && !hit.collider.gameObject.CompareTag("NPC"))
+                return direction;
+        }
+
+
+        return Random.insideUnitCircle.normalized;
+
+    }
+
+    void OnDrawGizmos()
+    {
+        Vector2 temp = transform.position;
+
+        // float[] angles = { 0f, 45f, 90f, 135f, 180f, 225f, 270f, 315f };
+
+        // foreach (float angle in angles)
+        // {
+        //     // Calculate the direction vector based on the angle
+        //     Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+        //     Gizmos.DrawRay(transform.position, direction);
+        // }
+
+        //Gizmos.DrawLine(transform.position, temp + targetDirection.normalized * maxChangeDirectionInterval * speed);
+        Gizmos.DrawRay(transform.position, targetDirection);
     }
 
     public override void OnHover()

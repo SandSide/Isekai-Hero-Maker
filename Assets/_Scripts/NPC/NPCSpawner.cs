@@ -12,7 +12,9 @@ public class NPCSpawner : MonoBehaviour
     public int maxAttemps = 10;
     public float spawnCheckArea = 1f;
     public int amountSpawned = 0;
-    
+    public bool showGizmos = false;
+
+
     private Vector2 centerOffset;
 
     void Awake()
@@ -48,20 +50,23 @@ public class NPCSpawner : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, spawnArea);
-        centerOffset = new Vector2(spawnArea.x/2, spawnArea.y/2);
-
-        for (int i = (int)-centerOffset.x; i <= (int)centerOffset.x; i++)
+        if(showGizmos)
         {
-            for (int j = (int)-centerOffset.y; j <= (int)centerOffset.y; j++)
-            {
-                Vector3 pos = new Vector2(i,j);
-                
-                RaycastHit2D hit = Physics2D.CircleCast(pos, spawnCheckArea, Vector2.zero);
+            Gizmos.DrawWireCube(transform.position, spawnArea);
+            centerOffset = new Vector2(spawnArea.x/2, spawnArea.y/2);
 
-                Gizmos.color = hit ? Color.red : Color.white;
-                Gizmos.DrawSphere(pos, spawnCheckArea);
-            }
-        }     
+            for (int i = (int)-centerOffset.x; i <= (int)centerOffset.x; i++)
+            {
+                for (int j = (int)-centerOffset.y; j <= (int)centerOffset.y; j++)
+                {
+                    Vector3 pos = new Vector2(i,j);
+                    
+                    RaycastHit2D hit = Physics2D.CircleCast(pos, spawnCheckArea, Vector2.zero);
+
+                    Gizmos.color = hit ? Color.red : Color.white;
+                    Gizmos.DrawSphere(pos, spawnCheckArea);
+                }
+            }   
+        }
     }
 }
